@@ -71,3 +71,5 @@ Setelah melalui tahap-tahap konfigurasi tersebut diatas, saatnya melalukan akses
 ![Akses domain](./assets/akses-domain.jpg)
 
 SELAMAT, sekarang api gateway *ambassador edge stack* yang menjadi penghubung antara dunia luar *downstream* dengan cluster kubernetes *upstream* sudah bisa diakses melalui  internet secara publik
+
+![SSL Labs](./assets/ssl-report.jpg)
