@@ -1,0 +1,58 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-gateway
+spec:
+  selector:
+    istio: gateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: istio-vs
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - istio-gateway
+  http:
+  - name: 'auth-microservice'
+    match:
+    - uri:
+        prefix: /auth
+    route:
+    - destination:
+        port:
+          number: 8080
+        host: auth-microservice
+  - name: 'route-service-a'
+    match:
+    - uri:
+        prefix: /app-a
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        port:
+          number: 80
+        host: service-a
+  - name: 'route-service-b'
+    match:
+    - uri:
+        prefix: /app-b
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        port:
+          number: 80
+        host: service-b
+        
