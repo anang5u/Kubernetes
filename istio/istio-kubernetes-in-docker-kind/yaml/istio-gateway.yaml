@@ -1,0 +1,36 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-ingressgateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: demo-routes
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - istio-ingressgateway
+  http:
+  - name: "httpbin-routes"
+    match:
+    - uri:
+        prefix: "/httpbin"
+    rewrite:
+      uri: "/"
+    route:
+    - destination:
+        host: httpbin.default.svc.cluster.local
+        port:
+          number: 80
