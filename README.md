@@ -7,3 +7,4 @@ All about tools, installing, configuration, etc inside kubernetes cluster
 - [Istio - Integrasi dengan Cert Manager](https://github.com/anang5u/kubernetes/tree/master/istio/istio-cert-manager-integration)
 - [Istio - Authorization Policy dengan JWT #1](https://github.com/anang5u/Kubernetes/tree/master/istio/jwt-token)
 - [Istio - Authorization JWT with OutputClaimToHeaders #2](https://github.com/anang5u/Kubernetes/tree/master/istio/istio-jwt-authorization-2)
+- [Docker - Private Docker Registry Self Hosted #1](https://github.com/anang5u/kubernetes/tree/master/docker/docker-registry-self-hosted)
