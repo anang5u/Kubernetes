@@ -16,3 +16,6 @@ All about tools, installing, configuration, etc inside kubernetes cluster
 - [Docker - Private Docker Registry Self Hosted](https://github.com/anang5u/kubernetes/tree/master/docker/docker-registry-self-hosted)
 - [Docker - Generate Certificate dengan Certbot](https://github.com/anang5u/kubernetes/tree/master/docker/generate-certificate-certbot)
 - [Docker Registry - Authenticate Proxy dengan Nginx dan Letsencrypt Certificates](https://github.com/anang5u/kubernetes/tree/master/docker/authenticate-proxy-with-nginx)
+
+#
+![Puzzle](./devops_n.jpg)
