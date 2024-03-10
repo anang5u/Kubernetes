@@ -1,4 +1,4 @@
-# Docker Registry - Authenticate Proxy dengan Nginx dan Letsencrypt Certificates
+# Docker Registry - Authenticate Proxy with Nginx, Letsencrypt Certificates and Registry UI
 
 ## Create the required directories
 ```
@@ -31,13 +31,36 @@ services:
       - ./certbot/conf/:/etc/nginx/ssl/:ro
   certbot:
     image: certbot/certbot:latest
+    restart: always
     volumes:
       - ./certbot/www/:/var/www/certbot/:rw
       - ./certbot/conf/:/etc/letsencrypt/:rw
   registry:
     image: registry:2
+    restart: always
     volumes:
       - ./data:/var/lib/registry
+  # -----------
+  # Registry UI
+  # Thanks for Joxit https://github.com/Joxit/docker-registry-ui
+  registry-ui:
+    image: joxit/docker-registry-ui:main
+    restart: always
+    ports:
+      - 8050:80
+    environment:
+      - SINGLE_REGISTRY=true
+      - REGISTRY_TITLE=Docker Registry UI
+      - DELETE_IMAGES=true
+      - SHOW_CONTENT_DIGEST=true
+      - NGINX_PROXY_PASS_URL=http://registry:5000
+      - SHOW_CATALOG_NB_TAGS=true
+      - CATALOG_MIN_BRANCHES=1
+      - CATALOG_MAX_BRANCHES=1
+      - TAGLIST_PAGE_SIZE=100
+      - REGISTRY_SECURED=false
+      - CATALOG_ELEMENTS_LIMIT=1000
+    container_name: registry-ui
 ```
 
 ## Nginx configuration 
@@ -227,8 +250,13 @@ $ docker pull registry.anangsu13.cloud/ubuntu:v2
 $ docker logout registry.anangsu13.cloud
 Removing login credentials for registry.anangsu13.cloud
 ```
+
+## Docker Registry UI
+![Registry User Interface](./assets/registry-ui.jpg)
+
 ### References
 - https://distribution.github.io/distribution/recipes/nginx/
 - https://pentacent.medium.com/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71
 - https://mindsers.blog/en/post/https-using-nginx-certbot-docker/
+- https://github.com/Joxit/docker-registry-ui
 
